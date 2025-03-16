@@ -1,6 +1,6 @@
 package com.kafka.controller;
 
-import com.kafka.dto.Order;
+import com.kafka.dto.Customer;
 import com.kafka.service.KafkaMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +14,8 @@ public class KafkaController {
     private KafkaMessagePublisher publisher;
 
     @PostMapping("/publish")
-    public void sendEvents(@RequestBody Order order) {
-        publisher.sendEventsToTopic(order);
+    public void sendEvents(@RequestBody Customer customer) {
+        publisher.sendEventsToTopic(customer);
     }
 
 }

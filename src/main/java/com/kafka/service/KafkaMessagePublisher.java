@@ -1,6 +1,6 @@
 package com.kafka.service;
 
-import com.kafka.dto.Order;
+import com.kafka.dto.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -14,16 +14,16 @@ public class KafkaMessagePublisher {
     @Autowired
     private KafkaTemplate<String,Object> template;
 
-    public void sendEventsToTopic(Order order) {
+    public void sendEventsToTopic(Customer customer) {
         try {
-            CompletableFuture<SendResult<String, Object>> future = template.send("javatechie-demo", order);
+            CompletableFuture<SendResult<String, Object>> future = template.send("javatechie-demo", customer);
             future.whenComplete((result, ex) -> {
                 if (ex == null) {
-                    System.out.println("Sent message=[" + order.toString() +
+                    System.out.println("Sent message=[" + customer.toString() +
                             "] with offset=[" + result.getRecordMetadata().offset() + "]");
                 } else {
                     System.out.println("Unable to send message=[" +
-                            order.toString() + "] due to : " + ex.getMessage());
+                            customer.toString() + "] due to : " + ex.getMessage());
                 }
             });
 

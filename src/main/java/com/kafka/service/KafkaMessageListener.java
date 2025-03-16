@@ -1,6 +1,6 @@
 package com.kafka.service;
 
-import com.kafka.dto.Order;
+import com.kafka.dto.Customer;
 import com.kafka.repo.OrderRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,18 @@ public class KafkaMessageListener {
     Logger log = LoggerFactory.getLogger(KafkaMessageListener.class);
 
     @KafkaListener(topics = "javatechie-demo",groupId = "jt-group")
-    public void consumeEvents(Order order) {
-        log.info("consumer consume the events {} ", order.toString());
-        orderRepo.save(order);
+    public void consumeEvents(Customer customer) {
+        log.info("consumer consume the events from consumer1 {} ", customer.toString());
+        orderRepo.save(customer);
+    }
+    @KafkaListener(topics = "javatechie-demo",groupId = "jt-group")
+    public void consumeEvents1(Customer customer) {
+        log.info("consumer consume the events from consumer2 {} ", customer.toString());
+        orderRepo.save(customer);
+    }
+    @KafkaListener(topics = "javatechie-demo",groupId = "jt-group")
+    public void consumeEvents2(Customer customer) {
+        log.info("consumer consume the events from consumer3 {} ", customer.toString());
+        orderRepo.save(customer);
     }
 }
